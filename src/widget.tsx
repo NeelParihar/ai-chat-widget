@@ -323,7 +323,6 @@ export function Widget() {
                   fontSize: 12,
                 }}
               >
-                <SvgIcon path={ICONS.globe} size={16} />
                 <select
                   value={lang}
                   onChange={(e) => setLang(e.target.value)}
@@ -374,7 +373,6 @@ export function Widget() {
                     }}
                   >
                     <SvgIcon path={ICONS.chat} size={14} />
-                    <span style={{ fontSize: 12, fontWeight: 600 }}>Chat</span>
                   </button>
                   <button
                     role="tab"
@@ -395,7 +393,6 @@ export function Widget() {
                     }}
                   >
                     <SvgIcon path={ICONS.mic} size={14} />
-                    <span style={{ fontSize: 12, fontWeight: 600 }}>Voice</span>
                   </button>
                 </div>
               )}
