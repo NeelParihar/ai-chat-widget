@@ -168,7 +168,7 @@ Gotchas:
 
 ## Notion Doc
 
-Approach and architecture notes: [link-to-notion]
+Approach and architecture notes: [link-to-notion](https://www.notion.so/AI-Chat-Voice-Widget-Approach-Document-2918e0cbee42805191c5e50594c787bc?source=copy_link)
 
 # React + TypeScript + Vite
 
