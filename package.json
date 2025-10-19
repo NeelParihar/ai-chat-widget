@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^2.0.23",
+    "@netlify/functions": "^5.0.0",
     "ai": "^5.0.76",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
@@ -32,6 +33,7 @@
     "express": "^5.1.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "serverless-http": "^4.0.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {
