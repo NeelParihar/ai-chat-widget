@@ -18,7 +18,7 @@ Embeddable multi-language chat + voice assistant widget. Single script tag embed
 ```
 npm run build
 npm run preview
-# then open http://localhost:4173/embed-test.html
+# then open http://localhost:4173
 ```
 
 The bundle is emitted as `dist/agent-widget.js`. Embed it on any site:
@@ -34,8 +34,115 @@ The bundle is emitted as `dist/agent-widget.js`. Embed it on any site:
     context: "You are a front-end expert",
   };
 </script>
-<script src="https://your-cdn/agent-widget.js"></script>
+<script src="https://your-cdn/"></script>
 ```
+
+## Use via jsDelivr (CDN)
+
+1. Add config before the script
+
+```html
+<script>
+  window.AgentWidgetConfig = {
+    position: "bottom-right",
+    theme: {
+      primaryColor: "#4F46E5",
+      backgroundColor: "#ffffff",
+      textColor: "#111827",
+      fontFamily:
+        "Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+    },
+    agent: { name: "HelperBot", avatar: "" },
+    enableVoice: true,
+    languageOptions: ["en", "hi", "es"],
+    context: "You are a front-end expert",
+  };
+
+  // Optional: point the widget to your API base (defaults to same origin)
+  // window.__AGENT_WIDGET_API_BASE__ = ""; // same origin (e.g. Netlify with redirect)
+  // window.__AGENT_WIDGET_API_BASE__ = "https://your-site.netlify.app";
+  // window.__AGENT_WIDGET_API_BASE__ = "https://api.yourdomain.com";
+</script>
+```
+
+2. Load the bundle
+
+- Pinned version:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/ai-chat-widget-react@1.0.2"></script>
+```
+
+- Latest (auto-updates):
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/ai-chat-widget-react@latest"></script>
+```
+
+Note: Do not use `type="module"` for this IIFE bundle.
+
+3. Configure the API path
+
+- Netlify Functions (recommended, same-origin):
+
+```html
+<script>
+  window.__AGENT_WIDGET_API_BASE__ = ""; // same origin; ensure redirect /api/* -> /.netlify/functions/:splat
+</script>
+```
+
+- External backend:
+
+```html
+<script>
+  window.__AGENT_WIDGET_API_BASE__ = "https://api.yourdomain.com";
+</script>
+```
+
+4. Programmatic control (optional)
+
+```html
+<script>
+  // window.AgentWidget.open();
+  // window.AgentWidget.close();
+  // window.AgentWidget.toggle();
+</script>
+```
+
+### Minimal full example
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <script>
+      window.AgentWidgetConfig = {
+        position: "bottom-right",
+        theme: {
+          primaryColor: "#4F46E5",
+          backgroundColor: "#ffffff",
+          textColor: "#111827",
+        },
+        agent: { name: "HelperBot", avatar: "" },
+        enableVoice: true,
+        languageOptions: ["en", "hi", "es"],
+        context: "You are a front-end expert",
+      };
+      window.__AGENT_WIDGET_API_BASE__ = ""; // same origin (e.g. Netlify)
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/ai-chat-widget-react@1.0.2"></script>
+  </body>
+</html>
+```
+
+Gotchas:
+
+- Define `window.AgentWidgetConfig` (and optional `window.__AGENT_WIDGET_API_BASE__`) before the CDN script.
+- If calling cross-origin, ensure CORS allows `POST` with `Content-Type: application/json`.
 
 ## API
 

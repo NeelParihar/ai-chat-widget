@@ -28,9 +28,92 @@
     <div class="card">
         <h1>Agent Widget Embed Test</h1>
         <p>This page loads the built widget bundle via a single <code>&lt;script&gt;</code> tag and customizes it via
-            <code>window.AgentWidgetConfig</code>.</p>
+            <code>window.AgentWidgetConfig</code>.
+        </p>
         <p>Run <code>npm run build</code> then <code>npm run preview</code>, and open this page at
-            <code>/embed-test.html</code>.</p>
+            <code>/embed-test.html</code>.
+        </p>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+        <h2>Use via jsDelivr (CDN)</h2>
+        <ol>
+            <li>
+                <strong>Add config before the script</strong>
+                <pre><code>&lt;script&gt;
+window.AgentWidgetConfig = {
+  position: "bottom-right",
+  theme: {
+    primaryColor: "#4F46E5",
+    backgroundColor: "#ffffff",
+    textColor: "#111827",
+    fontFamily: "Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+  },
+  agent: { name: "HelperBot", avatar: "" },
+  enableVoice: true,
+  languageOptions: ["en", "hi", "es"],
+  context: "You are a front-end expert"
+};
+
+// Optional: point the widget to your API base (defaults to same origin)
+// window.__AGENT_WIDGET_API_BASE__ = ""; // same origin (e.g. Netlify with redirect)
+// window.__AGENT_WIDGET_API_BASE__ = "https://your-site.netlify.app";
+// window.__AGENT_WIDGET_API_BASE__ = "https://api.yourdomain.com";
+&lt;/script&gt;</code></pre>
+            </li>
+            <li>
+                <strong>Load the IIFE bundle (not a module)</strong>
+                <p>Pinned version:</p>
+                <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/ai-chat-widget-react@1.0.1"&gt;&lt;/script&gt;</code></pre>
+                <p>Latest (auto-updates):</p>
+                <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/ai-chat-widget-react@latest"&gt;&lt;/script&gt;</code></pre>
+                <p style="margin-top: 8px;">Do not use <code>type="module"</code> for this IIFE bundle.</p>
+            </li>
+            <li>
+                <strong>Configure the API path</strong>
+                <p><em>Netlify Functions (recommended, same-origin):</em></p>
+                <pre><code>&lt;script&gt;
+window.__AGENT_WIDGET_API_BASE__ = ""; // same origin; ensure redirect /api/* -&gt; /.netlify/functions/:splat
+&lt;/script&gt;</code></pre>
+                <p><em>External backend:</em></p>
+                <pre><code>&lt;script&gt;
+window.__AGENT_WIDGET_API_BASE__ = "https://api.yourdomain.com";
+&lt;/script&gt;</code></pre>
+            </li>
+            <li>
+                <strong>Programmatic control (optional)</strong>
+                <pre><code>&lt;script&gt;
+// window.AgentWidget.open();
+// window.AgentWidget.close();
+// window.AgentWidget.toggle();
+&lt;/script&gt;</code></pre>
+            </li>
+        </ol>
+
+        <h3>Minimal full example</h3>
+        <pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;&lt;meta charset="utf-8" /&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;&lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+      window.AgentWidgetConfig = {
+        position: "bottom-right",
+        theme: { primaryColor: "#4F46E5", backgroundColor: "#ffffff", textColor: "#111827" },
+        agent: { name: "HelperBot", avatar: "" },
+        enableVoice: true,
+        languageOptions: ["en", "hi", "es"],
+        context: "You are a front-end expert",
+      };
+      window.__AGENT_WIDGET_API_BASE__ = ""; // same origin (e.g. Netlify)
+    &lt;/script&gt;
+    &lt;script src="https://cdn.jsdelivr.net/npm/ai-chat-widget-react@1.0.2"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <p><strong>Gotchas:</strong> Load as a plain script (no <code>type="module"</code>), define
+            <code>window.AgentWidgetConfig</code> (and optional <code>window.__AGENT_WIDGET_API_BASE__</code>) before
+            the CDN script, and ensure CORS allows cross-origin <code>POST</code> if calling an external backend.
+        </p>
     </div>
     <script>
         window.AgentWidgetConfig = {
